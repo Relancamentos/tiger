@@ -6,9 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/main.css">
     <link rel="shortcut icon" href="media/favicon.ico" type="image/x-icon">
-    <title>Document</title>
+    <title>Método Tigrinho - Sinais Pagantes</title>
 </head>
 <body>
+    <header>
+        <div>
+            <div>
+                <img src="media/logo.webp" alt="logo tigrinho">
+            </div>
+        </div>
+    </header>
     <main>
         <div>
             <div class="sinais">
@@ -40,7 +47,7 @@
 
     <script>
         let cooldownActive = false;
-        let cooldownTime = 10;
+        let cooldownTime = 60;
         let countdownInterval;
 
         function generateRandomNumber() {
@@ -63,7 +70,12 @@
             const now = new Date();
             const adjustedTime = new Date(now.getTime() + 2 * 60000);
 
-            const slot3Value = formatTime(adjustedTime.getHours() * 60 + adjustedTime.getMinutes());
+            const resultadoMinutos = adjustedTime.getHours() * 60 + adjustedTime.getMinutes();
+
+            const horas = Math.floor(resultadoMinutos / 60);
+            const minutos = resultadoMinutos % 60;
+
+            const slot3Value = `ATÉ ${horas}:${minutos}`;
 
             document.getElementById('slot1').textContent = slot1Value;
             document.getElementById('slot2').textContent = slot2Value;
@@ -90,7 +102,7 @@
                     if (cooldownTime <= 0) {
                         clearInterval(countdownInterval);
                         cooldownActive = false;
-                        cooldownTime = 10;
+                        cooldownTime = 60;
                         updateCooldownText();
                         resetGenerateButton();
                         resetSlots();
