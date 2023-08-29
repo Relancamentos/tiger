@@ -18,106 +18,11 @@
     </header>
     <main>
         <div>
-            <div class="sinais">
-                <img src="media/background.webp" alt="background-tiger">
-                <ul>
-                    <li>
-                        <img src="media/iconentrada.png" alt="icon entrada">
-                        <h4>ENTRADA:<span id="slot1"> --</span></h4>
-                    </li>
-                    <li>
-                        <img src="media/iconturbo.png" alt="icon turbo">
-                        <h4>TURBO:<span id="slot2"> --</span></h4>
-                    </li>
-                    <li>
-                        <img src="media/iconvalidade.png" alt="icon validade">
-                        <h4>VALIDADE:<span id="slot3"> --</span></h4>
-                    </li>
-                </ul>
-                <button class="gerador" id="generateButton" onclick="startCooldown()">GERAR NOVO SINAL</button>
-            </div>
-        </div>
-
-        <div>
             <div>
-                <iframe src="https://playpix.com/affiliates/?btag=1404705_l213556" frameborder="0"></iframe>
+                <h2>Clique para continuar</h2>
+                <a class="continuar" href="#">COMEÇAR</a>
             </div>
         </div>
     </main>
-
-    <script>
-        let cooldownActive = false;
-        let cooldownTime = 60;
-        let countdownInterval;
-
-        function generateRandomNumber() {
-            return Math.floor(Math.random() * 7) + 1;
-        }
-
-        function formatTime(minutes) {
-            const hours = Math.floor(minutes / 60);
-            const remainingMinutes = minutes % 60;
-            return `${hours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}`;
-        }
-
-        function populateSlots() {
-            const slot1Value = generateRandomNumber() + "X";
-            let slot2Value;
-            do {
-                slot2Value = generateRandomNumber() + "X";
-            } while (slot2Value === slot1Value);
-
-            const now = new Date();
-            const adjustedTime = new Date(now.getTime() + 2 * 60000);
-
-            const resultadoMinutos = adjustedTime.getHours() * 60 + adjustedTime.getMinutes();
-
-            const horas = Math.floor(resultadoMinutos / 60);
-            const minutos = resultadoMinutos % 60;
-
-            const slot3Value = `ATÉ ${horas}:${minutos}`;
-
-            document.getElementById('slot1').textContent = slot1Value;
-            document.getElementById('slot2').textContent = slot2Value;
-            document.getElementById('slot3').textContent = slot3Value;
-        }
-
-        function updateCooldownText() {
-            document.getElementById('generateButton').textContent = `Aguarde ${cooldownTime} segundos`;
-        }
-
-        function resetGenerateButton() {
-            document.getElementById('generateButton').textContent = 'GERAR NOVO SINAL';
-        }
-
-        function startCooldown() {
-            if (!cooldownActive) {
-                cooldownActive = true;
-                updateCooldownText();
-
-                countdownInterval = setInterval(function () {
-                    cooldownTime -= 1;
-                    updateCooldownText();
-
-                    if (cooldownTime <= 0) {
-                        clearInterval(countdownInterval);
-                        cooldownActive = false;
-                        cooldownTime = 60;
-                        updateCooldownText();
-                        resetGenerateButton();
-                        resetSlots();
-                    }
-                }, 1000);
-
-                populateSlots();
-            }
-        }
-
-        function resetSlots() {
-            document.getElementById('slot1').textContent = ' --';
-            document.getElementById('slot2').textContent = ' --';
-            document.getElementById('slot3').textContent = ' --';
-        }
-    </script>
 </body>
 </html>
